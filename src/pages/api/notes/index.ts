@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { connectDB } from './../../../utils/database';
+import { connectDB } from 'src/utils/database';
 
 async function notes(req: NextApiRequest, res: NextApiResponse) {
   const { method, body } = req;
