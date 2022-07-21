@@ -1,17 +1,56 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { connectDB } from '../../../utils/database';
 
-function id (req: NextApiRequest, res: NextApiResponse) {
-  const {method, query} = req;
+async function id(req: NextApiRequest, res: NextApiResponse) {
+  const { method, query, body } = req;
 
   switch (method) {
     case 'GET':
-      return res.status(200).json(`getting note with id: ${query}`);
+      try {
+        const getQuery = 'SELECT * FROM notes WHERE id = $1';
+        const values = [query.id];
+        const response = await connectDB.query(getQuery, values);
+
+        if (!response.rows.length) {
+          return res.status(404).json(`Note with id: ${values} not found`);
+        } else {
+          return res.status(200).json(response.rows);
+        }
+      } catch (error: any) {
+        return res.status(400).json({ error: error.message });
+      }
     case 'PATCH':
-      return res.status(200).json(`updating note with id: ${query}`);
+      try {
+        const { title, content } = body;
+        const getQuery =
+          'UPDATE notes SET title = $1, content = $2 WHERE id = $3 RETURNING *';
+        const values = [title, content, query.id];
+        const response = await connectDB.query(getQuery, values);
+
+        if (!response.rows.length) {
+          return res.status(404).json(`Note with id: ${values[2]} not found`);
+        } else {
+          return res.status(200).json(response.rows);
+        }
+      } catch (error: any) {
+        return res.status(400).json({ error: error.message });
+      }
     case 'DELETE':
-      return res.status(200).json(`deleting note with id: ${query}`);
+      try {
+        const getQuery = 'DELETE FROM notes WHERE id = $1 RETURNING *';
+        const values = [query.id];
+        const response = await connectDB.query(getQuery, values);
+
+        if (!response.rows.length) {
+          return res.status(404).json(`Note with id: ${values} not found`);
+        } else {
+          return res.status(200).json(response.rows);
+        }
+      } catch (error: any) {
+        return res.status(400).json({ error: error.message });
+      }
     default:
-      return res.status(400).json('method not allowed')
+      return res.status(400).json('method not allowed');
   }
 }
 
