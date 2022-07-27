@@ -34,7 +34,7 @@ const Index = ({notes}: Props) => {
 export default Index
 
 export const getServerSideProps = async () => {
-  const res = await fetch('http://localhost:3000/api/notes');
+  const res = await fetch('https://notes-next-js-rho.vercel.app/api/notes');
   const data = await res.json();
   return {
     props: {
