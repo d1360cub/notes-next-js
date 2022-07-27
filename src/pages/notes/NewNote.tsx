@@ -2,6 +2,7 @@ import React, {ChangeEvent, useState} from 'react'
 import {Card, Form, Button, Icon} from 'semantic-ui-react'
 import { Note } from 'src/interfaces/Note';
 import { useRouter } from 'next/router';
+import Layout from 'src/components/Layout';
 
 const NewNote = () => {
   const router = useRouter();
@@ -40,24 +41,26 @@ const NewNote = () => {
   }
 
   return (
-    <Card>
-      <Card.Content>
-        <Form onSubmit={handleSubmit}>
-          <Form.Field>
-            <label htmlFor='title'>Title:</label>
-            <input type='text' placeholder='Note title' name='title' onChange={handleChange}/>
-          </Form.Field>
-          <Form.Field>
-            <label htmlFor='content'>Content:</label>
-            <textarea name='content' placeholder='Note content' onChange={handleChange}/>
-          </Form.Field>
-          <Button type='submit'>
-            <Icon name='save' />
-            Save
-          </Button>
-        </Form>
-      </Card.Content>
-    </Card>
+    <Layout>
+      <Card>
+        <Card.Content>
+          <Form onSubmit={handleSubmit}>
+            <Form.Field>
+              <label htmlFor='title'>Title:</label>
+              <input type='text' placeholder='Note title' name='title' onChange={handleChange}/>
+            </Form.Field>
+            <Form.Field>
+              <label htmlFor='content'>Content:</label>
+              <textarea name='content' placeholder='Note content' onChange={handleChange}/>
+            </Form.Field>
+            <Button type='submit'>
+              <Icon name='save' />
+              Save
+            </Button>
+          </Form>
+        </Card.Content>
+      </Card>
+    </Layout>
   )
 }
 

@@ -2,6 +2,7 @@ import {Note} from 'src/interfaces/Note';
 import {Grid, Button} from 'semantic-ui-react';
 import {useRouter} from 'next/router';
 import NotesList from 'src/components/notes/NotesList';
+import Layout from 'src/components/Layout';
 
 interface Props {
   notes: Note[]
@@ -11,7 +12,7 @@ const Index = ({notes}: Props) => {
   const router = useRouter();
 
   return (
-    <>
+    <Layout>
         {
           !notes.length ? (
             <Grid columns={3} centered verticalAlign='middle' style={{height: '70%'}}>
@@ -26,7 +27,7 @@ const Index = ({notes}: Props) => {
             <NotesList notes={notes} />
           )
         }
-    </>
+    </Layout>
   )
 }
 
