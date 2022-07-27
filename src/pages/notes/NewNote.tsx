@@ -1,9 +1,15 @@
 import React, {ChangeEvent, useState} from 'react'
 import {Card, Form, Button, Icon} from 'semantic-ui-react'
 import { Note } from 'src/interfaces/Note';
+import { useRouter } from 'next/router';
 
 const NewNote = () => {
-  const [form, setForm] = useState({});
+  const router = useRouter();
+  const initialState= {
+    title: '',
+    content: '',
+  }
+  const [form, setForm] = useState(initialState);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = event.target;
@@ -26,10 +32,11 @@ const NewNote = () => {
     event.preventDefault();
     try {
       createNote(form);
+      router.push('/');
     } catch (error) {
       console.log(error);
     }
-    setForm({});
+    setForm(initialState);
   }
 
   return (
