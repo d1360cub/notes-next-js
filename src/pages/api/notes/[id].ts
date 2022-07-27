@@ -19,7 +19,7 @@ async function id(req: NextApiRequest, res: NextApiResponse) {
       } catch (error: any) {
         return res.status(400).json({ error: error.message });
       }
-    case 'PATCH':
+    case 'PUT':
       try {
         const { title, content } = body;
         const getQuery =
