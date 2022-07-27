@@ -19,7 +19,7 @@ const NewNote = () => {
   }
 
   const createNote = async (note:Note) => {
-    await fetch('http://localhost:3000/api/notes',
+    await fetch('https://notes-next-js-rho.vercel.app/api/notes',
       {
         method: 'POST',
         body: JSON.stringify(note),
@@ -31,7 +31,7 @@ const NewNote = () => {
   }
 
   const updateNote = async (id:string, note:Note) => {
-    await fetch(`http://localhost:3000/api/notes/${id}`,
+    await fetch(`https://notes-next-js-rho.vercel.app/api/notes/${id}`,
       {
         method: 'PUT',
         body: JSON.stringify(note),
@@ -58,7 +58,7 @@ const NewNote = () => {
 
   const loadNote = async (id: string) => {
     if (router.query.id) {
-    const res = await fetch(`http://localhost:3000/api/notes/${id}`);
+    const res = await fetch(`https://notes-next-js-rho.vercel.app/api/notes/${id}`);
     const note = await res.json();
     setForm(note[0]);
     } else {
@@ -68,7 +68,7 @@ const NewNote = () => {
 
   const deleteNote = async (id: string) => {
     try {
-      await fetch(`http://localhost:3000/api/notes/${id}`,
+      await fetch(`https://notes-next-js-rho.vercel.app/api/notes/${id}`,
         {
           method: 'DELETE',
         }
